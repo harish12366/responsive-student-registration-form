@@ -1,0 +1,359 @@
+/* ==========================================================================
+   1. GLOBAL RESET & DESIGN TOKENS
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #6366f1;
+    --primary-gradient: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    --bg-dark: #090014;
+    --card-bg: rgba(255, 255, 255, 0.96);
+    --card-border: rgba(255, 255, 255, 0.25);
+    --text-heading: #0f172a;
+    --text-body: #334155;
+    
+    /* INPUT BORDER COLOR TOKENS */
+    --input-border: #cbd5e1;
+    --input-border-hover: #64748b;
+    --input-border-focus: #6366f1;
+    
+    /* MINIMAL FOCUS RING */
+    --focus-ring: 0 0 0 2px rgba(99, 102, 241, 0.15);
+    
+    --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.3);
+    --shadow-btn: 0 4px 12px rgba(99, 102, 241, 0.25);
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    padding: clamp(16px, 4vw, 50px);
+    background:
+        radial-gradient(circle at 10% 20%, rgba(124, 58, 237, 0.35), transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(219, 39, 119, 0.3), transparent 40%),
+        var(--bg-dark);
+    background-attachment: fixed;
+    color: #f8fafc;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* ==========================================================================
+   2. MAIN LAYOUT CONTAINER
+   ========================================================================== */
+
+main {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(30px, 5vw, 45px);
+}
+
+/* ==========================================================================
+   3. FORM CARD
+   ========================================================================== */
+
+main section:first-child {
+    width: 100%;
+    padding: clamp(20px, 5vw, 40px);
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-card);
+}
+
+h1 {
+    margin-bottom: clamp(20px, 4vw, 30px);
+    text-align: center;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text-heading);
+}
+
+/* ==========================================================================
+   4. FORM FIELDS & DISTINCT BORDER STYLING
+   ========================================================================== */
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+form > label,
+.form-group > label,
+.gender-group > label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-heading);
+    margin-top: 4px;
+}
+
+/* Defined Input Borders + Minimal Shadow */
+form input[type="text"],
+form input[type="email"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 11px 14px;
+    background: #ffffff;
+    color: var(--text-heading);
+    font-family: inherit;
+    font-size: 14px;
+    
+    /* CLEAR SOLID BORDER */
+    border: 1.5px solid var(--input-border);
+    border-radius: var(--radius-md);
+    
+    outline: none;
+    box-shadow: none;
+    transition: var(--transition);
+}
+
+form input[type="text"]::placeholder,
+form input[type="email"]::placeholder,
+form textarea::placeholder {
+    color: #94a3b8;
+}
+
+/* Input Hover State */
+form input[type="text"]:hover,
+form input[type="email"]:hover,
+form textarea:hover,
+form select:hover {
+    border-color: var(--input-border-hover);
+}
+
+/* Minimal Focus State (Distinct Border + Very Light Shadow) */
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form textarea:focus,
+form select:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: var(--focus-ring);
+}
+
+form textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%3B475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 16px;
+    padding-right: 36px;
+}
+
+/* ==========================================================================
+   5. GENDER RADIO BUTTONS & SUBMIT BUTTON
+   ========================================================================== */
+
+.gender-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gender-options,
+.gender-group > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+}
+
+.gender-option,
+.gender-group > div > div {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.gender-group label {
+    font-size: 14px;
+    color: var(--text-body);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.gender-group input[type="radio"] {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--input-border);
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition);
+    margin: 0;
+}
+
+.gender-group input[type="radio"]:checked {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    box-shadow: inset 0 0 0 3px #ffffff;
+}
+
+button[type="submit"] {
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px 18px;
+    border: none;
+    border-radius: var(--radius-md);
+    background: var(--primary-gradient);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-btn);
+    transition: var(--transition);
+}
+
+button[type="submit"]:hover {
+    opacity: 0.95;
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   6. TABLE SECTION - FIXED HORIZONTAL SCROLL & VISIBLE BOTTOM SCROLLBAR
+   ========================================================================== */
+
+main section:last-child {
+    width: 100%;
+    margin-top: 0;
+    
+    /* ALLOW HORIZONTAL SCROLL FOR TABLE ON MOBILE */
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 12px;
+}
+
+main section:last-child::before {
+    content: "Submitted Student Details";
+    display: block;
+    margin-bottom: 16px;
+    text-align: center;
+    font-size: clamp(20px, 3.5vw, 24px);
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+table {
+    width: 100%;
+    
+    /* PREVENTS HEADERS FROM GETTING CUT OFF ON MOBILE */
+    min-width: 800px !important;
+    
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+}
+
+thead {
+    background: var(--primary-gradient);
+    color: #ffffff;
+}
+
+th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-body);
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Custom Visible Horizontal Scrollbar for Table */
+main section:last-child::-webkit-scrollbar {
+    height: 8px;
+}
+
+main section:last-child::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+main section:last-child::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+main section:last-child::-webkit-scrollbar-thumb:hover {
+    background: #4338ca;
+}
+
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 14px 10px;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form textarea,
+    form select {
+        padding: 10px 12px;
+        font-size: 14px;
+    }
+}
